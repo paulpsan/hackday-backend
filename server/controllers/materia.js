@@ -1,7 +1,7 @@
 "use strict";
 import jsonpatch from "fast-json-patch";
 import { Materia } from "../sqldb";
-
+import { Docente } from "../sqldb";
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -63,13 +63,16 @@ function handleError(res, statusCode) {
 }
 
 export function index(req, res) {
-  return Materia.findAll()
+  return Materia.findAll({
+    include: [{ model: Docente, as: "Docente" }],
+  })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 // Gets a single Materia from the DB
 export function show(req, res) {
   return Materia.find({
+    include: [{ model: Docente, as: "Docente" }],
     where: {
       _id: req.params.id
     }

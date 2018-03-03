@@ -27,7 +27,7 @@ db.Materia.belongsTo(db.Docente, {
 
 db.Horario.belongsTo(db.Materia, {
   foreignKey: {
-    name: "fk_Materia",
+    name: "fk_materia",
     allowNull: false
   },
   as: "Materia"
